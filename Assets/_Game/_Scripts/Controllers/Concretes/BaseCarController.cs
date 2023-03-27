@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using CrowStudiosCase.Inputs;
+using CrowStudiosCase.Movements;
+using CrowStudiosCase.ScriptableObjects;
 using UnityEngine;
 
-namespace CrowStudiosCase
+namespace CrowStudiosCase.Controllers
 {
     public abstract class BaseCarController : MonoBehaviour, IEntityController
     {
@@ -13,23 +16,25 @@ namespace CrowStudiosCase
         public float Acceleration => carSettingsSo.acceleration;
         public float TurnAngle => carSettingsSo.turnAngle;
 
-        private IInputService _input;
-        private IWheelMovement _wheelMovement;
+        protected IInputService input;
+        protected IWheelMovement wheelMovement;
 
-        private void Awake()
+        public IInputService InputService => input;
+        
+        protected virtual  void Awake()
         {
-            _input = new PCInputSystem();
-            _wheelMovement = new WheelColliderMovement(this, _input, wheels, frontWheelTransforms);
+            input = new PCInputSystem();
+            wheelMovement = new WheelColliderMovement(this, input, wheels, frontWheelTransforms);
         }
 
-        private void Start()
+        protected virtual  void Start()
         {
-            _wheelMovement.StartWheels();
+            wheelMovement.StartWheels();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
-            _wheelMovement.UpdateWheels();
+            wheelMovement.UpdateWheels();
         }
     }
 }

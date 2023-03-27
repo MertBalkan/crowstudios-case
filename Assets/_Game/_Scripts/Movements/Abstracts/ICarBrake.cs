@@ -1,4 +1,4 @@
-namespace CrowStudiosCase
+namespace CrowStudiosCase.Movements
 {
     public interface ICarBrake
     {

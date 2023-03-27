@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using CrowStudiosCase.Controllers;
+using CrowStudiosCase.Inputs;
 using UnityEngine;
 
-namespace CrowStudiosCase
+namespace CrowStudiosCase.Movements
 {
     public class WheelColliderMovement : IWheelMovement
     {

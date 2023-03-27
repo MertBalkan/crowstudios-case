@@ -1,4 +1,4 @@
-namespace CrowStudiosCase
+namespace CrowStudiosCase.Controllers
 {
     public interface IEntityController 
     {
