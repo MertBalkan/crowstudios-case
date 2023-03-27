@@ -1,5 +1,3 @@
-using System;
-using Cinemachine;
 using UnityEngine;
 
 namespace CrowStudiosCase.Controllers

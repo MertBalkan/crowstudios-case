@@ -16,25 +16,25 @@ namespace CrowStudiosCase.Controllers
         public float Acceleration => carSettingsSo.acceleration;
         public float TurnAngle => carSettingsSo.turnAngle;
 
-        protected IInputService input;
-        protected IWheelMovement wheelMovement;
+        private IInputService _input;
+        private IWheelMovement _wheelMovement;
 
-        public IInputService InputService => input;
+        public IInputService InputService => _input;
         
         protected virtual  void Awake()
         {
-            input = new PCInputSystem();
-            wheelMovement = new WheelColliderMovement(this, input, wheels, frontWheelTransforms);
+            _input = new PCInputSystem();
+            _wheelMovement = new WheelColliderMovement(this, _input, wheels, frontWheelTransforms);
         }
 
         protected virtual  void Start()
         {
-            wheelMovement.StartWheels();
+            _wheelMovement.StartWheels();
         }
 
         protected virtual void Update()
         {
-            wheelMovement.UpdateWheels();
+            _wheelMovement.UpdateWheels();
         }
     }
 }

@@ -21,7 +21,8 @@ namespace CrowStudiosCase.Controllers
         {
             base.Update();
             
-            _cameraSwitchComponent.SwitchCamera();
+            if(_cameraSwitchComponent != null)
+                _cameraSwitchComponent.SwitchCamera();
         }
     }
 }
