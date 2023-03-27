@@ -23,19 +23,17 @@ namespace CrowStudiosCase.Movements
         {
             _input = input;
             _entity = entity;
-
             _wheels = wheels;
-            
             _frontWheelsTransforms = frontWheelsTransforms;
         }
 
-        public void StartWheels()
+        public void StartWheel()
         {
             _currentFrontLeft = _frontWheelsTransforms[0].transform;
             _currentFrontRight = _frontWheelsTransforms[1].transform;
         }
 
-        public void UpdateWheels()
+        public void UpdateWheel()
         {
             UpdateBreakForce();
             SetBreakForce();
@@ -44,7 +42,7 @@ namespace CrowStudiosCase.Movements
             SetFrontWheelRotations(0.3f);
         }
 
-        public void SetMotorTorque()
+        private  void SetMotorTorque()
         {
             _currentAcceleration = _entity.Acceleration * _input.MoveKeyHold;
             
@@ -53,7 +51,7 @@ namespace CrowStudiosCase.Movements
         }
 
 
-        public void TurnCar()
+        private  void TurnCar()
         {
             _currentTurnAngle = _entity.TurnAngle * _input.TurnKeyHold;
             
@@ -82,7 +80,7 @@ namespace CrowStudiosCase.Movements
                     _frontWheelsTransforms[i].transform.localRotation = Quaternion.Euler(0, -90, 0);
         }
 
-        public void SetBreakForce() => _wheels.ForEach(w => w.brakeTorque = _currentBreakForce);
+        private void SetBreakForce() => _wheels.ForEach(w => w.brakeTorque = _currentBreakForce);
         private void UpdateBreakForce() => _currentBreakForce = _input.BreakKeyHold ? _currentBreakForce = _entity.BreakingForce : _currentBreakForce = 0;
     }
 }

@@ -1,4 +1,5 @@
 using CrowStudiosCase.Components;
+using UnityEngine;
 
 namespace CrowStudiosCase.Controllers
 {
@@ -23,6 +24,7 @@ namespace CrowStudiosCase.Controllers
             
             if(_cameraSwitchComponent != null)
                 _cameraSwitchComponent.SwitchCamera();
+            
         }
     }
 }
