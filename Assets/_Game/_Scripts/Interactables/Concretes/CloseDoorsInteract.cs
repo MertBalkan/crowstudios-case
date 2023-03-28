@@ -1,14 +1,16 @@
+using System;
 using UnityEngine;
 
 namespace CrowStudiosCase.Interactables
 {
     public class CloseDoorsInteract : MonoBehaviour, IInteractable
     {
-        public System.Action OnDoorsClosed;
+        public Action Messanger { get; set; }
         
         public void Interact()
         { 
-            OnDoorsClosed?.Invoke();
+            Messanger?.Invoke();
         }
+
     }
 }

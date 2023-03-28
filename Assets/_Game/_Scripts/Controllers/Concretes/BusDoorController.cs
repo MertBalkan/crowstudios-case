@@ -32,14 +32,14 @@ namespace CrowStudiosCase.Controllers
 
         private void Start()
         {
-            _openDoors.OnDoorsOpened += OpenDoors;
-            _closeDoors.OnDoorsClosed += CloseDoors;
+            _openDoors.Messanger += OpenDoors;
+            _closeDoors.Messanger += CloseDoors;
         }
 
         private void OnDisable()
         {
-            _openDoors.OnDoorsOpened -= OpenDoors;
-            _closeDoors.OnDoorsClosed -= CloseDoors;
+            _openDoors.Messanger -= OpenDoors;
+            _closeDoors.Messanger -= CloseDoors;
         }
 
         public void OpenDoors()

@@ -1,14 +1,15 @@
+using System;
 using UnityEngine;
 
 namespace CrowStudiosCase.Interactables
 {
     public class OpenDoorsInteract : MonoBehaviour, IInteractable
     {
-        public System.Action OnDoorsOpened;
+        public Action Messanger { get; set; }
 
         public void Interact()
         {
-            OnDoorsOpened?.Invoke();
+            Messanger?.Invoke();
         }
     }
 }
