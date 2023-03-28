@@ -5,12 +5,11 @@ namespace CrowStudiosCase.Interactables
 {
     public class CloseDoorsInteract : MonoBehaviour, IInteractable
     {
-        public Action Messanger { get; set; }
+        public Action Messenger { get; set; }
         
         public void Interact()
         { 
-            Messanger?.Invoke();
+            Messenger?.Invoke();
         }
-
     }
 }

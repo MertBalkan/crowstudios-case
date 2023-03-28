@@ -17,12 +17,12 @@ namespace CrowStudiosCase.Movements
 
         private void Start()
         {
-            _interactable.Messanger += MoveButton;
+            _interactable.Messenger += MoveButton;
         }
 
         private void OnDisable()
         {
-            _interactable.Messanger -= MoveButton;
+            _interactable.Messenger -= MoveButton;
         }
 
         private void MoveButton()

@@ -1,6 +1,8 @@
+using CrowStudiosCase.Enums;
 using CrowStudiosCase.Interactables;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CrowStudiosCase.Controllers
 {
@@ -21,8 +23,13 @@ namespace CrowStudiosCase.Controllers
         [Header("Duration Value"), Space(10)] 
         [SerializeField] private float duration;
 
+        [Header("Duration Mode"), Space(10)] 
+        [SerializeField] private DoorMode doorMode;
+
         private OpenDoorsInteract _openDoors;
         private CloseDoorsInteract _closeDoors;
+
+        public DoorMode DoorMode => doorMode;
 
         private void Awake()
         {
@@ -32,14 +39,14 @@ namespace CrowStudiosCase.Controllers
 
         private void Start()
         {
-            _openDoors.Messanger += OpenDoors;
-            _closeDoors.Messanger += CloseDoors;
+            _openDoors.Messenger += OpenDoors;
+            _closeDoors.Messenger += CloseDoors;
         }
 
         private void OnDisable()
         {
-            _openDoors.Messanger -= OpenDoors;
-            _closeDoors.Messanger -= CloseDoors;
+            _openDoors.Messenger -= OpenDoors;
+            _closeDoors.Messenger -= CloseDoors;
         }
 
         public void OpenDoors()
@@ -48,6 +55,8 @@ namespace CrowStudiosCase.Controllers
             fDoor2.transform.DOLocalRotate(new Vector3(0, fDoor2RotatePoint, 0), duration);
             bDoor1.transform.DOLocalRotate(new Vector3(0, bDoor1RotatePoint, 0), duration);
             bDoor2.transform.DOLocalRotate(new Vector3(0, bDoor2RotatePoint, 0), duration);
+
+            doorMode = DoorMode.DOORS_OPEN;
         }
 
         public void CloseDoors()
@@ -56,6 +65,8 @@ namespace CrowStudiosCase.Controllers
             fDoor2.transform.DOLocalRotate(new Vector3(0, 90, 0), duration);
             bDoor1.transform.DOLocalRotate(new Vector3(0, 90, 0), duration);
             bDoor2.transform.DOLocalRotate(new Vector3(0, 90, 0), duration);
+            
+            doorMode = DoorMode.DOOR_CLOSE;
         }
     }
 }
