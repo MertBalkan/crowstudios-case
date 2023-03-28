@@ -8,7 +8,7 @@ namespace CrowStudiosCase.Inputs
         public float MoveKeyHold => Input.GetAxis("Vertical");
         public bool BreakKeyHold => Input.GetKey(KeyCode.Space);
         public bool SwitchCameraKeyPressed => Input.GetKeyDown(KeyCode.V);
-        public bool WiperKeyPressed => Input.GetKeyDown(KeyCode.E);
+        public bool InteractKeyHold => Input.GetMouseButtonDown(0);
         public bool HornKeyPressed => Input.GetKeyDown(KeyCode.T);
     }
 }

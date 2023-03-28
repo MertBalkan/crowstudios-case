@@ -6,7 +6,7 @@ namespace CrowStudiosCase.Inputs
         float MoveKeyHold { get; } 
         bool BreakKeyHold { get; }
         public bool SwitchCameraKeyPressed { get; }
-        public bool WiperKeyPressed { get; }
+        public bool InteractKeyHold { get; }
         public bool HornKeyPressed { get; }
     }
 }

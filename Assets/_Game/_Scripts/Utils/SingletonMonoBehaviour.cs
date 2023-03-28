@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Linq;
 using Object = UnityEngine.Object;
 
-namespace CrowStudiosCase.Managers
+namespace CrowStudiosCase.Utils
 {
     public static class SingletonMonoBehaviour
     {
