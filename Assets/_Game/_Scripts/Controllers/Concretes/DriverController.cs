@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
 using CrowStudiosCase.Inputs;
 using CrowStudiosCase.Interactables;
 using UnityEngine;
-using System.Linq;
-using UnityEditor.Experimental.GraphView;
-using UnityEngine.Rendering.UI;
 
 namespace CrowStudiosCase.Controllers
 {
@@ -23,7 +18,13 @@ namespace CrowStudiosCase.Controllers
 
         private void Update()
         {
+            InteractWithObjects();
+        }
+
+        private void InteractWithObjects()
+        {
             _mouseInput = Input.mousePosition;
+            
             var ray = Camera.main.ScreenPointToRay(_mouseInput);
 
             if (Physics.Raycast(ray, out var raycastHit, 10, interactLayer))
