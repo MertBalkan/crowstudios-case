@@ -1,3 +1,4 @@
+using System;
 using CrowStudiosCase.Enums;
 using CrowStudiosCase.UIs;
 using UnityEngine;
@@ -34,7 +35,16 @@ namespace CrowStudiosCase.Controllers
         {
             if (other.gameObject.tag.Equals("Bus"))
             {
+                notificationText.EnableText();
                 TakePassengersFromBusStop();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.tag.Equals("Bus"))
+            {
+                notificationText.DisableText();
             }
         }
 

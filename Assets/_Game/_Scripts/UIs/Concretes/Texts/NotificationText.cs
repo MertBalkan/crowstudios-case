@@ -28,5 +28,14 @@ namespace CrowStudiosCase
                 GetComponent<TextMeshProUGUI>().text = "OPEN DOORS AND LOWER YOUR SPEED LIMIT";
             }
         }
+        
+        public void DisableText()
+        {
+            gameObject.SetActive(false);
+        } 
+        public void EnableText()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
