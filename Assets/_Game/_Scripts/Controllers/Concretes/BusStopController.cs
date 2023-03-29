@@ -7,9 +7,11 @@ namespace CrowStudiosCase.Controllers
 {
     public class BusStopController : MonoBehaviour
     {
+        [Header("Required Texts"), Space(10)]
         [SerializeField] private PassengerCountText passengerCountText;
         [SerializeField] private NotificationText notificationText;
-        
+        [SerializeField] private SeatsText seatText;
+
         private SpawnerController _spawner;
         private BusDoorController _busDoorController;
         private BusController _busController;
@@ -17,7 +19,6 @@ namespace CrowStudiosCase.Controllers
         private bool _isPassengersTaken = false;
 
         public bool IsPassengersTaken => _isPassengersTaken;
-        
         private void Awake()
         {
             _spawner = GetComponent<SpawnerController>();
@@ -29,14 +30,27 @@ namespace CrowStudiosCase.Controllers
         {
             _spawner.SpawnObject();
             passengerCountText.UpdatePassengerCountText(_spawner.NpcCount);
+            
+            _busController.OnPassengersEntered += TakePassengersFromBusStop;
+            _busController.OnPassengersEntered += passengerCountText.DisableText;
+        }
+
+        private void OnDisable()
+        {
+            _busController.OnPassengersEntered -= TakePassengersFromBusStop;
+            _busController.OnPassengersEntered -= passengerCountText.DisableText;
+        }
+
+        private void Update()
+        {
+            seatText.UpdateSeatText(_busController.CurrentCapacity, _busController.MaxCapacity);
         }
 
         private void OnTriggerStay(Collider other)
         {
             if (other.gameObject.tag.Equals("Bus"))
             {
-                notificationText.EnableText();
-                TakePassengersFromBusStop();
+                _busController.EnteredPassengers(this);
             }
         }
 
@@ -48,18 +62,21 @@ namespace CrowStudiosCase.Controllers
             }
         }
 
-        private void TakePassengersFromBusStop()
+        private void TakePassengersFromBusStop(BusStopController busStopController)
         {
-            if(!_isPassengersTaken)
-                notificationText.DisplayNotificationText(_busDoorController.DoorMode == DoorMode.DOORS_OPEN, _busController.IsBusStopped);
-
-            if (_busDoorController.DoorMode == DoorMode.DOORS_OPEN)
+            if (busStopController == this)
             {
-                if (!_busController.IsBusStopped) return;
-                    
-                _isPassengersTaken = true;
-                _spawner.ClearList();
-                passengerCountText.DisableText();
+                if(!_isPassengersTaken)
+                    notificationText.DisplayNotificationText(_busDoorController.DoorMode == DoorMode.DOORS_OPEN, _busController.IsBusStopped);
+
+                if (_busDoorController.DoorMode == DoorMode.DOORS_OPEN && !_isPassengersTaken)
+                {
+                    if (!_busController.IsBusStopped) return;
+                    _isPassengersTaken = true;
+                
+                    _busController.IncreaseSeatCount(_spawner.NpcCount);
+                    _spawner.ClearList();
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ namespace CrowStudiosCase.Controllers
         public float BreakingForce => carSettingsSo.breakingForce;
         public float Acceleration => carSettingsSo.acceleration;
         public float TurnAngle => carSettingsSo.turnAngle;
+        public int MaxCapacity => carSettingsSo.carCapacity;
 
         private IInputService _input;
         private IWheelMovement _wheelMovement;
