@@ -1,4 +1,3 @@
-using System;
 using CrowStudiosCase.Enums;
 using CrowStudiosCase.UIs;
 using UnityEngine;
@@ -8,23 +7,24 @@ namespace CrowStudiosCase.Controllers
     public class BusStopController : MonoBehaviour
     {
         [SerializeField] private PassengerCountText passengerCountText;
+        [SerializeField] private NotificationText notificationText;
         
         private SpawnerController _spawner;
         private BusDoorController _busDoorController;
-        
+        private BusController _busController;
+
+        private bool _isPassengersTaken = false;
+
         private void Awake()
         {
             _spawner = GetComponent<SpawnerController>();
             _busDoorController = FindObjectOfType<BusDoorController>();
+            _busController = FindObjectOfType<BusController>();
         }
 
         private void Start()
         {
             _spawner.SpawnObject();
-        }
-
-        private void Update()
-        {
             passengerCountText.UpdatePassengerCountText(_spawner.NpcCount);
         }
 
@@ -32,17 +32,22 @@ namespace CrowStudiosCase.Controllers
         {
             if (other.gameObject.tag.Equals("Bus"))
             {
-                Debug.Log(_busDoorController.DoorMode.ToString());
-                
-                switch (_busDoorController.DoorMode)
-                {
-                    case DoorMode.DOOR_CLOSE:
-                        Debug.LogWarning("OPEN DOORS BEFORE TAKE PASSENGERS");
-                        break;
-                    case DoorMode.DOORS_OPEN:
-                        _spawner.ClearList();
-                        break;
-                }
+                TakePassengersFromBusStop();
+            }
+        }
+
+        private void TakePassengersFromBusStop()
+        {
+            if(!_isPassengersTaken)
+                notificationText.DisplayNotificationText(_busDoorController.DoorMode == DoorMode.DOORS_OPEN, _busController.IsBusStopped);
+
+            if (_busDoorController.DoorMode == DoorMode.DOORS_OPEN)
+            {
+                if (!_busController.IsBusStopped) return;
+                    
+                _isPassengersTaken = true;
+                _spawner.ClearList();
+                passengerCountText.UpdatePassengerCountText(0);
             }
         }
     }

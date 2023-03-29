@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CrowStudiosCase.UIs
 {
@@ -8,6 +9,7 @@ namespace CrowStudiosCase.UIs
     {
         [SerializeField] private TextMeshProUGUI timeText;
         [SerializeField] private float duration;
+        [SerializeField] private Image clockImage;
 
         private float _minute;
         private float _seconds;
@@ -31,14 +33,17 @@ namespace CrowStudiosCase.UIs
         {
             while (_currentTime >= 0)
             {
+                clockImage.fillAmount = Mathf.InverseLerp(0, duration, _currentTime);
                 _minute = Mathf.FloorToInt(_currentTime / 60);
                 _seconds = Mathf.FloorToInt(_currentTime % 60);
                 
-                timeText.text = "Time Left: " + string.Format("{0:00}:{1:00}", _minute, _seconds);
+                timeText.text = string.Format("{0:00}:{1:00}", _minute, _seconds);
                 yield return new WaitForSeconds(1f);
                 
                 _currentTime--;
+                clockImage.fillAmount = _currentTime;
             }
+            
             yield return null;
         }
 

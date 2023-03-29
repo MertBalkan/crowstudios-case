@@ -16,7 +16,7 @@ namespace CrowStudiosCase
         [SerializeField] private PassengerNpc npc;
         [SerializeField] private int npcCount;
 
-        private List<PassengerNpc> _npcs = new List<PassengerNpc>();
+        [SerializeField] private List<PassengerNpc> _npcs = new List<PassengerNpc>();
         public int NpcCount => npcCount;
         
         
@@ -48,10 +48,7 @@ namespace CrowStudiosCase
 
         public void ClearList()
         {
-            foreach (var npc in _npcs)
-            {
-                Destroy(npc);
-            }
+            _npcs.ForEach(p => p.gameObject.SetActive(false));
             _npcs.Clear();
         }
     }
