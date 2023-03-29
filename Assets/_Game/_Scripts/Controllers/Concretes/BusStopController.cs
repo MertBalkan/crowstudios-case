@@ -15,6 +15,8 @@ namespace CrowStudiosCase.Controllers
 
         private bool _isPassengersTaken = false;
 
+        public bool IsPassengersTaken => _isPassengersTaken;
+        
         private void Awake()
         {
             _spawner = GetComponent<SpawnerController>();

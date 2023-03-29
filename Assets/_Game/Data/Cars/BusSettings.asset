@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BusSettings
   m_EditorClassIdentifier: 
   breakingForce: 5000
-  acceleration: 300
-  turnAngle: 20
+  acceleration: 1000
+  turnAngle: 40
