@@ -1,3 +1,4 @@
+using CrowStudiosCase.Managers;
 using UnityEngine;
 
 namespace CrowStudiosCase.Controllers

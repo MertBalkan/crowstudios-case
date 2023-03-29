@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CrowStudiosCase.Inputs;
+using CrowStudiosCase.Managers;
 using CrowStudiosCase.Movements;
 using CrowStudiosCase.ScriptableObjects;
 using UnityEngine;
@@ -41,6 +42,9 @@ namespace CrowStudiosCase.Controllers
         {
             _wheelMovement.UpdateWheel();
             _drivingWheelMovement.UpdateWheel();
+            
+            // Reset game for possible bugs.
+            GameManager.Instance.ResetGame(_input);
         }
     }
 }

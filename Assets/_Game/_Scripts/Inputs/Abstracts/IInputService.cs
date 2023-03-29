@@ -7,6 +7,7 @@ namespace CrowStudiosCase.Inputs
         bool BreakKeyHold { get; }
         public bool SwitchCameraKeyPressed { get; }
         public bool InteractKeyHold { get; }
+        public bool ResetGameKeyPressed { get; }
         public bool HornKeyPressed { get; }
     }
 }

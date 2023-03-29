@@ -1,8 +1,9 @@
+using CrowStudiosCase.Inputs;
 using CrowStudiosCase.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CrowStudiosCase
+namespace CrowStudiosCase.Managers
 {
     public class GameManager : SingletonMonoBehaviour<GameManager>
     {
@@ -26,10 +27,15 @@ namespace CrowStudiosCase
             SceneManager.LoadScene(sceneIndex);
         }
         
-        
         public void QuitGame()
         {
             Application.Quit();
+        }
+
+        public void ResetGame(IInputService input)
+        {
+            if (input.ResetGameKeyPressed)
+                LoadSelfScene();
         }
     }
 }
