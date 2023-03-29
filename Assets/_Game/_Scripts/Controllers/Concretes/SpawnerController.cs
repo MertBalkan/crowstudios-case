@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace CrowStudiosCase
 {
+    [RequireComponent(typeof(SphereCollider))]
     public class SpawnerController : MonoBehaviour
     {
         [Header("Editor Stuffs"), Space(10)]
@@ -15,6 +16,8 @@ namespace CrowStudiosCase
         [Header("Spawn System"), Space(10)]
         [SerializeField] private PassengerNpc npc;
         [SerializeField] private int npcCount;
+
+        [SerializeField] private Transform npcParent;
 
         [SerializeField] private List<PassengerNpc> _npcs = new List<PassengerNpc>();
         public int NpcCount => npcCount;
@@ -42,6 +45,7 @@ namespace CrowStudiosCase
                 var position = transform.position;
 
                 var passenger = Instantiate(npc, new Vector3(position.x + randomSpawnPointX, position.y, position.z + randomSpawnPointZ), Quaternion.identity);
+                passenger.transform.SetParent(npcParent.transform);
                 _npcs.Add(passenger);
             }
         }
