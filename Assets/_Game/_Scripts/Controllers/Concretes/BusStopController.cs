@@ -47,7 +47,7 @@ namespace CrowStudiosCase.Controllers
                     
                 _isPassengersTaken = true;
                 _spawner.ClearList();
-                passengerCountText.UpdatePassengerCountText(0);
+                passengerCountText.DisableText();
             }
         }
     }

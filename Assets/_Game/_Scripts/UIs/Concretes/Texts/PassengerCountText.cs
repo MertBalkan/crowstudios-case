@@ -9,5 +9,10 @@ namespace CrowStudiosCase.UIs
         {
             GetComponent<TextMeshProUGUI>().text = "Passengers: " + passengerCount;
         }
+
+        public void DisableText()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

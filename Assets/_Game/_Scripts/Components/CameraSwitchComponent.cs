@@ -2,7 +2,6 @@ using CrowStudiosCase.Controllers;
 using CrowStudiosCase.Enums;
 using CrowStudiosCase.Inputs;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CrowStudiosCase.Components
 {
@@ -39,24 +38,40 @@ namespace CrowStudiosCase.Components
             switch (_camIndex)
             {
                 case 0:
-                    fpsCamera.gameObject.SetActive(true);
-                    tpsCamera.gameObject.SetActive(false);
-                    perspectiveCamera.gameObject.SetActive(false);
-                    _cameraMode = CameraMode.TPS_CAM;
-                break;
+                    EnableTpsCam();
+                    break;
                 case 1:
-                    fpsCamera.gameObject.SetActive(false);
-                    tpsCamera.gameObject.SetActive(true);
-                    perspectiveCamera.gameObject.SetActive(false);
-                    _cameraMode = CameraMode.FPS_CAM;
-                break;
+                    EnableFpsCam();
+                    break;
                 case 2:
-                    perspectiveCamera.gameObject.SetActive(true);
-                    tpsCamera.gameObject.SetActive(false);
-                    fpsCamera.gameObject.SetActive(false);
-                    _cameraMode = CameraMode.PERSPECTIVE_CAM;
-                break;
+                    EnablePersCam();
+                    break;
             }
+        }
+
+        private void EnableFpsCam()
+        {
+            fpsCamera.gameObject.SetActive(false);
+            tpsCamera.gameObject.SetActive(true);
+            perspectiveCamera.gameObject.SetActive(false);
+            _cameraMode = CameraMode.FPS_CAM;
+        }
+
+        private void EnableTpsCam()
+        {
+            fpsCamera.gameObject.SetActive(true);
+            tpsCamera.gameObject.SetActive(false);
+            perspectiveCamera.gameObject.SetActive(false);
+            _cameraMode = CameraMode.TPS_CAM;
+        }
+
+        private void EnablePersCam()
+        {
+            perspectiveCamera.gameObject.SetActive(true);
+            tpsCamera.gameObject.SetActive(false);
+            fpsCamera.gameObject.SetActive(false);
+            _cameraMode = CameraMode.PERSPECTIVE_CAM;
+            
         }
     }
 }
