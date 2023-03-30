@@ -16,12 +16,19 @@ namespace CrowStudiosCase
         [Header("Spawn System"), Space(10)]
         [SerializeField] private PassengerNpc npc;
         [SerializeField] private int npcCount;
+        [SerializeField] private float addTime = 0;
+        [SerializeField] private bool isPassengersTaken = false;
 
         [SerializeField] private Transform npcParent;
 
         [SerializeField] private List<PassengerNpc> _npcs = new List<PassengerNpc>();
         public int NpcCount => npcCount;
-        
+        public float AddTime => addTime;
+        public bool IsPassengersTaken
+        {
+            get => isPassengersTaken;
+            set => isPassengersTaken = value;
+        }
         
 #if UNITY_EDITOR
         private void OnDrawGizmos()

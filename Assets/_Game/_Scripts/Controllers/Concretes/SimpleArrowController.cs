@@ -9,16 +9,12 @@ namespace CrowStudiosCase.Controllers
     public class SimpleArrowController : MonoBehaviour, ILook
     {
         [SerializeField] private float scaleAmount = 1.2f;
-        
-        private List<BusStopController> _busStops;
 
         private Vector3 _initialScale;
         private Vector3 _scaleTo;
 
         private void Start()
         {
-            _busStops = FindObjectsOfType<BusStopController>().ToList();
-
             _initialScale = transform.localScale;
             _scaleTo = _initialScale * scaleAmount;
             
@@ -54,7 +50,7 @@ namespace CrowStudiosCase.Controllers
             var minDistance = float.MaxValue;
             BusStopController closestBusStop = null;
 
-            foreach (var busStop in _busStops)
+            foreach (var busStop in BusStopManager.Instance.BusStops)
             {
                 var distance = Vector3.Distance(transform.position, busStop.gameObject.transform.position);
 

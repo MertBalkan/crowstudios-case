@@ -6,8 +6,20 @@ namespace CrowStudiosCase.UIs
 {
     public class PassengerCountText : MonoBehaviour
     {
-        public void UpdatePassengerCountText(int passengerCount) => GetComponent<TextMeshProUGUI>().text = "Passengers: " + passengerCount;
-        public void DisableText(BusStopController busStopController) => gameObject.SetActive(false);
+        [SerializeField] private TextMeshProUGUI passengerText;
+        [SerializeField] private TextMeshProUGUI addedTimeText;
+
+        public void UpdatePassengerCountText(int passengerCount, float addedTimeCount)
+        {
+            passengerText.text = "Passengers: " + passengerCount;
+            addedTimeText.text = "+" + addedTimeCount;
+        }
+
+        public void DisableText(BusStopController busStopController)
+        {
+            passengerText.gameObject.SetActive(false);
+            addedTimeText.gameObject.SetActive(false);
+        }
         public void EnableText() => gameObject.SetActive(true);
     }
 }

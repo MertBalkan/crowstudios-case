@@ -38,7 +38,7 @@ namespace CrowStudiosCase.Utils
                         if (instance == null)
                         {
                             Debug.Log("Instance of type " + typeof(T) + " does not exist, creating new");
-
+            
                             CreateSingletonInstance();
                         }
                     }
@@ -71,10 +71,10 @@ namespace CrowStudiosCase.Utils
 
         protected bool SetupInstance(bool persistOnLoad = true)
         {
+            transform.SetParent(null);
             if (instance != null && instance != this)
             {
                 Debug.Log($"An instance of type {this.GetType()} already exists. Destroying duplicate.");
-
                 Destroy(this.gameObject);
                 return false;
             }

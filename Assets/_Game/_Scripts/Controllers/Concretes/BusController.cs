@@ -1,5 +1,6 @@
 using System;
 using CrowStudiosCase.Components;
+using CrowStudiosCase.Managers;
 using CrowStudiosCase.UIs;
 using UnityEngine;
 
@@ -58,6 +59,12 @@ namespace CrowStudiosCase.Controllers
         public void EnteredPassengers(BusStopController whichBusStop)
         {
             OnPassengersEntered?.Invoke(whichBusStop);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag.Equals("GroundObj"))
+                InGameTimeManager.Instance.DecreaseTimer(10);
         }
     }
 }

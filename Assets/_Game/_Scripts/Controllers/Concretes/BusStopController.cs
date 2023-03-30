@@ -1,5 +1,5 @@
-using System;
 using CrowStudiosCase.Enums;
+using CrowStudiosCase.Managers;
 using CrowStudiosCase.UIs;
 using UnityEngine;
 
@@ -16,9 +16,12 @@ namespace CrowStudiosCase.Controllers
         private BusDoorController _busDoorController;
         private BusController _busController;
 
-        private bool _isPassengersTaken = false;
-
-        public bool IsPassengersTaken => _isPassengersTaken;
+        public bool IsPassengersTaken
+        {
+            get => _spawner.IsPassengersTaken;
+            set => _spawner.IsPassengersTaken = value;
+        }
+        
         private void Awake()
         {
             _spawner = GetComponent<SpawnerController>();
@@ -29,7 +32,7 @@ namespace CrowStudiosCase.Controllers
         private void Start()
         {
             _spawner.SpawnObject();
-            passengerCountText.UpdatePassengerCountText(_spawner.NpcCount);
+            passengerCountText.UpdatePassengerCountText(_spawner.NpcCount, _spawner.AddTime);
             
             _busController.OnPassengersEntered += TakePassengersFromBusStop;
             _busController.OnPassengersEntered += passengerCountText.DisableText;
@@ -66,14 +69,15 @@ namespace CrowStudiosCase.Controllers
         {
             if (busStopController == this)
             {
-                if(!_isPassengersTaken)
+                if(!IsPassengersTaken)
                     notificationText.DisplayNotificationText(_busDoorController.DoorMode == DoorMode.DOORS_OPEN, _busController.IsBusStopped);
 
-                if (_busDoorController.DoorMode == DoorMode.DOORS_OPEN && !_isPassengersTaken)
+                if (_busDoorController.DoorMode == DoorMode.DOORS_OPEN && !IsPassengersTaken)
                 {
                     if (!_busController.IsBusStopped) return;
-                    _isPassengersTaken = true;
-                
+                    
+                    IsPassengersTaken = true;
+                    InGameTimeManager.Instance.AddTimer(_spawner.AddTime);
                     _busController.IncreaseSeatCount(_spawner.NpcCount);
                     _spawner.ClearList();
                 }

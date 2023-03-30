@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using CrowStudiosCase.Controllers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +13,18 @@ namespace CrowStudiosCase.UIs
         [SerializeField] private float duration;
         [SerializeField] private Image clockImage;
 
+        private BusController _busController;
+
         private float _minute;
         private float _seconds;
         private float _currentTime;
         
         public bool IsTimerFinished => (_minute == 0 && _seconds == 0);
+
+        private void Awake()
+        {
+            _busController = FindObjectOfType<BusController>();
+        }
 
         void Start()
         {
@@ -24,11 +33,11 @@ namespace CrowStudiosCase.UIs
             _minute = Mathf.FloorToInt(_currentTime / 60);
             _seconds = Mathf.FloorToInt(_currentTime % 60);
             
-            timeText.text = string.Format("{0:00}:{1:00}", _minute, _seconds);
+            timeText.text = $"{_minute:00}:{_seconds:00}";
             
             StartCoroutine(CountdownTime());
         }
-
+        
         private IEnumerator CountdownTime()
         {
             while (_currentTime >= 0)
@@ -37,7 +46,7 @@ namespace CrowStudiosCase.UIs
                 _minute = Mathf.FloorToInt(_currentTime / 60);
                 _seconds = Mathf.FloorToInt(_currentTime % 60);
                 
-                timeText.text = string.Format("{0:00}:{1:00}", _minute, _seconds);
+                timeText.text = $"{_minute:00}:{_seconds:00}";
                 yield return new WaitForSeconds(1f);
                 
                 _currentTime--;
@@ -52,7 +61,7 @@ namespace CrowStudiosCase.UIs
             _currentTime += timeAmount;
         }
 
-        public void RemoveTime(float timeAmount)
+        public void DecreaseTime(float timeAmount)
         {
             if(timeAmount == 0) return;
 

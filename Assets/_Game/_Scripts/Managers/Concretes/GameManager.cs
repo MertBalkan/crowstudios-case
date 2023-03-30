@@ -7,6 +7,8 @@ namespace CrowStudiosCase.Managers
 {
     public class GameManager : SingletonMonoBehaviour<GameManager>
     {
+        public System.Action OnGameOver;
+        
         private void Awake()
         {
             SetupInstance();
@@ -25,6 +27,11 @@ namespace CrowStudiosCase.Managers
         public void LoadSceneByIndex(int sceneIndex)
         {
             SceneManager.LoadScene(sceneIndex);
+        }
+
+        public void GameOver()
+        {
+            OnGameOver?.Invoke();
         }
         
         public void QuitGame()
