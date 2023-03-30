@@ -1156,6 +1156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   length: 5
+  offset: 0
 --- !u!1001 &331933110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2133,6 +2134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   length: 5
+  offset: 0
 --- !u!1 &507544630
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,6 +4300,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6158877941029370797, guid: 7c648947d00d08049bf9af26d1bc3db8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8399651086169095351, guid: 7c648947d00d08049bf9af26d1bc3db8,
         type: 3}
       propertyPath: m_Name
@@ -5889,6 +5896,11 @@ PrefabInstance:
     - target: {fileID: 4812896578459389604, guid: 7c648947d00d08049bf9af26d1bc3db8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158877941029370797, guid: 7c648947d00d08049bf9af26d1bc3db8,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8399651086169095351, guid: 7c648947d00d08049bf9af26d1bc3db8,
@@ -11730,6 +11742,8 @@ MonoBehaviour:
   frontWheelTransforms:
   - {fileID: 2301706029989912135}
   - {fileID: 7155073512865406441}
+  drivingWheel: {fileID: 0}
+  busSpeedText: {fileID: 0}
 --- !u!65 &4826805437474894874
 BoxCollider:
   m_ObjectHideFlags: 0
