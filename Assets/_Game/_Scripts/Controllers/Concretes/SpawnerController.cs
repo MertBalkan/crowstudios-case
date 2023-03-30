@@ -3,6 +3,7 @@ using UnityEditor;
 #endif
 using System.Collections.Generic;
 using CrowStudiosCase.NPCs;
+using CrowStudiosCase.Utils;
 using UnityEngine;
 
 namespace CrowStudiosCase
@@ -24,12 +25,13 @@ namespace CrowStudiosCase
         [SerializeField] private List<PassengerNpc> _npcs = new List<PassengerNpc>();
         public int NpcCount => npcCount;
         public float AddTime => addTime;
+        public int ScoreAmountPerSpawnPoint => npcCount * ScoreAndTimerConstants.PerSpawnPointScoreAmount;
         public bool IsPassengersTaken
         {
             get => isPassengersTaken;
             set => isPassengersTaken = value;
         }
-        
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {

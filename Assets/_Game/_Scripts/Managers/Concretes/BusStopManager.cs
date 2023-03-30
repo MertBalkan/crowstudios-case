@@ -20,11 +20,11 @@ namespace CrowStudiosCase
         private void Awake()
         {
             SetupInstance();
+            busStops = FindObjectsOfType<BusStopController>().ToList();
         }
 
         private void Start()
         {
-            busStops = FindObjectsOfType<BusStopController>().ToList();
             _busStopCount = busStops.Count;
         }
 

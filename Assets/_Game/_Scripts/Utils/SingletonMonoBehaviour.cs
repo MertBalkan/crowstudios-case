@@ -71,15 +71,6 @@ namespace CrowStudiosCase.Utils
 
         protected bool SetupInstance(bool persistOnLoad = true)
         {
-            transform.SetParent(null);
-            if (instance != null && instance != this)
-            {
-                Debug.Log($"An instance of type {this.GetType()} already exists. Destroying duplicate.");
-                Destroy(this.gameObject);
-                return false;
-            }
-
-
             instance = (T)this;
             wasInstance = true;
             if (persistOnLoad)

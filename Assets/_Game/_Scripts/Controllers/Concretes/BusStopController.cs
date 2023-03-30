@@ -34,14 +34,14 @@ namespace CrowStudiosCase.Controllers
             _spawner.SpawnObject();
             passengerCountText.UpdatePassengerCountText(_spawner.NpcCount, _spawner.AddTime);
             
-            _busController.OnPassengersEntered += TakePassengersFromBusStop;
-            _busController.OnPassengersEntered += passengerCountText.DisableText;
+            _busController.OnPassengersBoard += TakePassengersFromBusStop;
+            _busController.OnPassengersBoard += passengerCountText.DisableText;
         }
 
         private void OnDisable()
         {
-            _busController.OnPassengersEntered -= TakePassengersFromBusStop;
-            _busController.OnPassengersEntered -= passengerCountText.DisableText;
+            _busController.OnPassengersBoard -= TakePassengersFromBusStop;
+            _busController.OnPassengersBoard -= passengerCountText.DisableText;
         }
 
         private void Update()
@@ -52,35 +52,39 @@ namespace CrowStudiosCase.Controllers
         private void OnTriggerStay(Collider other)
         {
             if (other.gameObject.tag.Equals("Bus"))
-            {
-                _busController.EnteredPassengers(this);
-            }
+                _busController.BoardedPassengers(this);
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.tag.Equals("Bus"))
-            {
                 notificationText.DisableText();
-            }
         }
 
         private void TakePassengersFromBusStop(BusStopController busStopController)
         {
-            if (busStopController == this)
-            {
-                if(!IsPassengersTaken)
-                    notificationText.DisplayNotificationText(_busDoorController.DoorMode == DoorMode.DOORS_OPEN, _busController.IsBusStopped);
+            if (busStopController != this) return;
 
-                if (_busDoorController.DoorMode == DoorMode.DOORS_OPEN && !IsPassengersTaken)
-                {
-                    if (!_busController.IsBusStopped) return;
+            var isDoorsOpen = _busDoorController.DoorMode == DoorMode.DOORS_OPEN;
+            var isBusStopped = _busController.IsBusStopped;
+            
+            if(!IsPassengersTaken)
+                notificationText.DisplayBusStopNotificationText(isDoorsOpen, isBusStopped);
+            
+            if(_busController.IsBussFull)
+                notificationText.DisplayBusFullNotification();
+
+            if (isDoorsOpen && !IsPassengersTaken && !_busController.IsBussFull)
+            {
+                if (!isBusStopped) return;
                     
-                    IsPassengersTaken = true;
-                    InGameTimeManager.Instance.AddTimer(_spawner.AddTime);
-                    _busController.IncreaseSeatCount(_spawner.NpcCount);
-                    _spawner.ClearList();
-                }
+                IsPassengersTaken = true;
+                 
+                InGameTimeManager.Instance.AddTimer(_spawner.AddTime);
+                ScoreManager.Instance.IncreaseScore(_spawner.ScoreAmountPerSpawnPoint);
+
+                _busController.IncreaseSeatCount(_spawner.NpcCount);
+                _spawner.ClearList();
             }
         }
     }

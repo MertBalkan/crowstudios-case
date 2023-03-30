@@ -2,6 +2,7 @@ using System;
 using CrowStudiosCase.Components;
 using CrowStudiosCase.Managers;
 using CrowStudiosCase.UIs;
+using CrowStudiosCase.Utils;
 using UnityEngine;
 
 namespace CrowStudiosCase.Controllers
@@ -15,17 +16,20 @@ namespace CrowStudiosCase.Controllers
 
         private int _currentCapacity = 0;
         private float _currentSpeed;
-        
+
         public float BusSpeed => _currentSpeed;
         public bool IsBusStopped => _currentSpeed < 2;
         public int CurrentCapacity => _currentCapacity;
+        public bool IsBussFull => _currentCapacity >= MaxCapacity;
+        public bool IsSomeoneInTheBus => _currentCapacity > 0;
 
-        public System.Action<BusStopController> OnPassengersEntered;
-        
+        public System.Action<BusStopController> OnPassengersBoard;
+        public System.Action<PassengerDropPointController> OnPassengersDisembark;
+
         protected override void Awake()
         {
             base.Awake();
-            
+
             _rb = GetComponent<Rigidbody>();
             _cameraSwitchComponent = GetComponent<CameraSwitchComponent>();
         }
@@ -33,11 +37,48 @@ namespace CrowStudiosCase.Controllers
         protected override void Update()
         {
             base.Update();
-            
-            if(_cameraSwitchComponent != null)
+
+            if (Input.GetKeyDown(KeyCode.J)) _currentCapacity += 20;
+
+            if (_cameraSwitchComponent != null)
                 _cameraSwitchComponent.SwitchCamera();
-            
+
             DisplaySpeed();
+            ControlSeats();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag.Equals("GroundObj"))
+                PunishPlayer();
+        }
+
+        public void IncreaseSeatCount(int count)
+        {
+            _currentCapacity += count;
+        }
+
+        public void ResetSeatCount()
+        {
+            _currentCapacity = 0;
+        }
+
+        public void DecreaseSeatCount(int amount)
+        {
+            if (amount == 0) return;
+            if (amount > _currentCapacity) _currentCapacity = 0;
+
+            _currentCapacity -= amount;
+        }
+
+        public void BoardedPassengers(BusStopController whichBusStop)
+        {
+            OnPassengersBoard?.Invoke(whichBusStop);
+        }
+
+        public void DisembarkPassengers(PassengerDropPointController dropPointController)
+        {
+            OnPassengersDisembark?.Invoke(dropPointController);
         }
 
         private void DisplaySpeed()
@@ -48,23 +89,18 @@ namespace CrowStudiosCase.Controllers
 
         private float CalculateSpeedByKilometer()
         {
-            return (float)Math.Round(_rb.velocity.magnitude * 3.6f, 0);
+            return (float)System.Math.Round(_rb.velocity.magnitude * 3.6f, 0);
         }
 
-        public void IncreaseSeatCount(int count)
+        private void ControlSeats()
         {
-            _currentCapacity += count;
+            if (IsBussFull) _currentCapacity = MaxCapacity;
         }
 
-        public void EnteredPassengers(BusStopController whichBusStop)
+        private void PunishPlayer()
         {
-            OnPassengersEntered?.Invoke(whichBusStop);
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.tag.Equals("GroundObj"))
-                InGameTimeManager.Instance.DecreaseTimer(10);
+            ScoreManager.Instance.DecreaseScore((int)_currentSpeed);
+            InGameTimeManager.Instance.DecreaseTimer(ScoreAndTimerConstants.DecreaseTimerPunishmentAmount);
         }
     }
 }

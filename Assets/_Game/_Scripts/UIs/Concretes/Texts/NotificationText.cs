@@ -14,7 +14,7 @@ namespace CrowStudiosCase
             _notificationText = GetComponent<TextMeshProUGUI>();
         }
 
-        public void DisplayNotificationText(bool isDoorsOpen, bool isBusStopped)
+        public void DisplayBusStopNotificationText(bool isDoorsOpen, bool isBusStopped)
         {
             if (isDoorsOpen && isBusStopped)
                 DisableText();
@@ -22,18 +22,30 @@ namespace CrowStudiosCase
             if (isDoorsOpen && !isBusStopped)
             {
                 EnableText();
-                UpdateText(NotificationConsts.LowerYourSpeedNotif);
+                UpdateText(NotificationConstants.LowerYourSpeedNotif);
             }
             else if (isBusStopped && !isDoorsOpen)
             {
                 EnableText();
-                UpdateText(NotificationConsts.OpenDoorsNotif);
+                UpdateText(NotificationConstants.OpenDoorsNotif);
             }
             else if (!isBusStopped && !isDoorsOpen)
             {
                 EnableText();
-                UpdateText(NotificationConsts.OpenDoorsAndLowerYourSpeedNotif);
+                UpdateText(NotificationConstants.OpenDoorsAndLowerYourSpeedNotif);
             }
+        }
+
+        public void DisplayBusFullNotification()
+        {
+            EnableText();
+            UpdateText(NotificationConstants.BusFullNotif);
+        }
+
+        public void DisplayPassengerDropPointNotification()
+        {
+            EnableText();
+            UpdateText(NotificationConstants.SlowDownAndOpenDoorNotif);
         }
         
         public void DisableText() => gameObject.SetActive(false);

@@ -52,6 +52,7 @@ namespace CrowStudiosCase.Controllers
 
             foreach (var busStop in BusStopManager.Instance.BusStops)
             {
+                if (busStop == null) return null;
                 var distance = Vector3.Distance(transform.position, busStop.gameObject.transform.position);
 
                 if (distance < minDistance && !busStop.IsPassengersTaken)
