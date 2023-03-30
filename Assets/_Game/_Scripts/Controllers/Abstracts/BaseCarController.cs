@@ -24,6 +24,7 @@ namespace CrowStudiosCase.Controllers
         private IWheelMovement _drivingWheelMovement;
 
         public IInputService InputService => _input;
+
         
         protected virtual  void Awake()
         {

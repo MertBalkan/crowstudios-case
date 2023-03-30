@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using CrowStudiosCase.Controllers;
 using TMPro;

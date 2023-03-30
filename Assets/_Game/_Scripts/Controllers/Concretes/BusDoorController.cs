@@ -2,7 +2,6 @@ using CrowStudiosCase.Enums;
 using CrowStudiosCase.Interactables;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CrowStudiosCase.Controllers
 {

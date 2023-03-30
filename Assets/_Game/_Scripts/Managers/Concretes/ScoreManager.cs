@@ -37,6 +37,11 @@ namespace CrowStudiosCase.Managers
             _score += scoreAmount;
         }
 
+        public void ResetScore()
+        {
+            _score = 0;
+        }
+
         public void DecreaseScore(int scoreAmount)
         {
             _score -= scoreAmount;

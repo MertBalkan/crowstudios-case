@@ -35,13 +35,11 @@ namespace CrowStudiosCase.Controllers
             passengerCountText.UpdatePassengerCountText(_spawner.NpcCount, _spawner.AddTime);
             
             _busController.OnPassengersBoard += TakePassengersFromBusStop;
-            _busController.OnPassengersBoard += passengerCountText.DisableText;
         }
 
         private void OnDisable()
         {
             _busController.OnPassengersBoard -= TakePassengersFromBusStop;
-            _busController.OnPassengersBoard -= passengerCountText.DisableText;
         }
 
         private void Update()
@@ -83,6 +81,7 @@ namespace CrowStudiosCase.Controllers
                 InGameTimeManager.Instance.AddTimer(_spawner.AddTime);
                 ScoreManager.Instance.IncreaseScore(_spawner.ScoreAmountPerSpawnPoint);
 
+                passengerCountText.DisableText();
                 _busController.IncreaseSeatCount(_spawner.NpcCount);
                 _spawner.ClearList();
             }

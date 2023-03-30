@@ -1,4 +1,3 @@
-using System;
 using CrowStudiosCase.UIs;
 using CrowStudiosCase.Utils;
 
@@ -14,15 +13,6 @@ namespace CrowStudiosCase.Managers
             SetupInstance();
 
             _countDownTimerUI = FindObjectOfType<CountDownUI>();
-        }
-
-        private void Update()
-        {
-            if (_countDownTimerUI.IsTimerFinished)
-            {
-                // TODO: GAME OVER
-                // TODO: DISPLAY SCORE
-            }
         }
 
         public void AddTimer(float amount)

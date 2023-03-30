@@ -26,53 +26,11 @@ namespace CrowStudiosCase.Utils
         private static bool didCacheInstance = false;
         protected static T instance;
 
-        protected static T I => Instance;
-        public static T Instance {
-            get {
-                if (!didCacheInstance)
-                {
-                    if (instance == null)
-                    {
-                        var instances = FindObjectsOfType<T>();
-                        instance = instances.FirstOrDefault(i => i.wasInstance) ?? instances.FirstOrDefault();
-                        if (instance == null)
-                        {
-                            Debug.Log("Instance of type " + typeof(T) + " does not exist, creating new");
-            
-                            CreateSingletonInstance();
-                        }
-                    }
-
-                    didCacheInstance = true;
-                }
-
-                return instance;
-            }
-
-            protected set { instance = value; }
-        }
-
-        public static void CreateSingletonInstance()
-        {
-            var obj = new GameObject(typeof(T).Name + "_Instance");
-
-            if (Application.isPlaying)
-            {
-                DontDestroyOnLoad(obj);
-            }
-
-            instance = obj.AddComponent<T>();
-        }
-
-        public static bool HasInstance() => instance;
-
-        private bool wasInstance;
-
-
+        public static T Instance => instance;
+        
         protected bool SetupInstance(bool persistOnLoad = true)
         {
             instance = (T)this;
-            wasInstance = true;
             if (persistOnLoad)
             {
                 DontDestroyOnLoad(this.gameObject);

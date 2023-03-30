@@ -12,10 +12,10 @@ namespace CrowStudiosCase.UIs
         public void UpdatePassengerCountText(int passengerCount, float addedTimeCount)
         {
             passengerText.text = "Passengers: " + passengerCount;
-            addedTimeText.text = "+" + addedTimeCount;
+            addedTimeText.text = "Time: +" + addedTimeCount;
         }
 
-        public void DisableText(BusStopController busStopController)
+        public void DisableText()
         {
             passengerText.gameObject.SetActive(false);
             addedTimeText.gameObject.SetActive(false);

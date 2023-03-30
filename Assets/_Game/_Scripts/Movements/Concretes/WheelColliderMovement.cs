@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CrowStudiosCase.Controllers;
 using CrowStudiosCase.Inputs;
+using CrowStudiosCase.Managers;
 using UnityEngine;
 
 namespace CrowStudiosCase.Movements
@@ -35,6 +36,8 @@ namespace CrowStudiosCase.Movements
 
         public void UpdateWheel()
         {
+            if (GameManager.Instance.IsGameScene() && InGameTimeManager.Instance.CountDownUI.IsTimerFinished) return;
+            
             UpdateBreakForce();
             SetBreakForce();
             SetMotorTorque();

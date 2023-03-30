@@ -29,9 +29,21 @@ namespace CrowStudiosCase.Managers
             SceneManager.LoadScene(sceneIndex);
         }
 
-        public void GameOver()
+        public bool IsGameScene()
         {
-            OnGameOver?.Invoke();
+            return SceneManager.GetActiveScene().buildIndex == 1;
+        }
+
+        public void PressedPlayAgainButton()
+        {
+            ScoreManager.Instance.ResetScore();
+            LoadSelfScene();
+        }
+
+        public void Update()
+        {
+            if(IsGameScene() && InGameTimeManager.Instance.CountDownUI.IsTimerFinished)
+                OnGameOver?.Invoke();
         }
         
         public void QuitGame()

@@ -1,4 +1,3 @@
-using System;
 using CrowStudiosCase.Components;
 using CrowStudiosCase.Managers;
 using CrowStudiosCase.UIs;
@@ -38,13 +37,11 @@ namespace CrowStudiosCase.Controllers
         {
             base.Update();
 
-            if (Input.GetKeyDown(KeyCode.J)) _currentCapacity += 20;
-
             if (_cameraSwitchComponent != null)
                 _cameraSwitchComponent.SwitchCamera();
 
-            DisplaySpeed();
             ControlSeats();
+            DisplaySpeed();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -63,14 +60,6 @@ namespace CrowStudiosCase.Controllers
             _currentCapacity = 0;
         }
 
-        public void DecreaseSeatCount(int amount)
-        {
-            if (amount == 0) return;
-            if (amount > _currentCapacity) _currentCapacity = 0;
-
-            _currentCapacity -= amount;
-        }
-
         public void BoardedPassengers(BusStopController whichBusStop)
         {
             OnPassengersBoard?.Invoke(whichBusStop);
@@ -84,6 +73,8 @@ namespace CrowStudiosCase.Controllers
         private void DisplaySpeed()
         {
             _currentSpeed = CalculateSpeedByKilometer();
+            
+            if(busSpeedText == null) return;
             busSpeedText.UpdateBusSpeedText(_currentSpeed);
         }
 

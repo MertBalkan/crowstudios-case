@@ -10,6 +10,5 @@ namespace CrowStudiosCase.Inputs
         public bool SwitchCameraKeyPressed => Input.GetKeyDown(KeyCode.V);
         public bool InteractKeyHold => Input.GetMouseButtonDown(0);
         public bool ResetGameKeyPressed => Input.GetKeyDown(KeyCode.R);
-        public bool HornKeyPressed => Input.GetKeyDown(KeyCode.T);
     }
 }
